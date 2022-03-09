@@ -1,0 +1,25 @@
+{% extends 'administrator/base.html' %}
+{% block content %}
+     {% include 'administrator/header.html' %}
+    <div>
+    {{ profile.first_name }}
+    </div>
+    <h1>
+    {{ profile.user.username }}
+    </h1>
+    <h1>
+    {{ profile.user.email }}
+    </h1>
+    <a href="{% url 'accounts:profile_save' %}">update</a>
+    <div><h1>{{ user_profile.desc }}</h1></div>
+    <div>{{ user_profile.address }}</div>
+    <div>{{ user_profile.national_code }}</div>
+    <div>{{ user_profile.phone }}</div>
+    <div>{{ user_profile.postal_address }}</div>
+
+
+
+
+
+     {% include 'administrator/footer.html' %}
+{% endblock content %}

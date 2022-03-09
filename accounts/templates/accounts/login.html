@@ -1,0 +1,80 @@
+{% extends 'administrator/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block main %}
+
+    <body>
+
+
+        <!-- Nav Bar Start -->
+
+        <!-- Nav Bar End -->
+
+        <!-- Bottom Bar Start -->
+
+        <!-- Bottom Bar End -->
+
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Login & Register</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <!-- Login Start -->
+         <form method="POST" action="">
+             {% csrf_token %}
+             <div class="login">
+                 <div class="container-fluid">
+                     <div class="row">
+                         <div class="col-md-12">
+                             <div class="login-form">
+                                 <div class="row">
+                                     <div class="col-md-6">
+                                         <label>E-mail </label>
+                                         <input class="form-control" type="text" name="email" placeholder="E-mail ">
+                                     </div>
+                                     <div class="col-md-6">
+                                         <label>Password</label>
+                                         <input class="form-control" type="text" name="password" placeholder="password">
+                                     </div>
+                                     <div class="col-md-6">
+                                         <input class="btn" type="submit" value="Login" >
+                                     </div>
+                                     <div class="col-md-3">
+                                         <a href="{% url 'accounts:reset' %}">Forget the password</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </form>
+        <!-- Login End -->
+
+        <!-- Footer Start -->
+
+        <!-- Footer End -->
+
+        <!-- Footer Bottom Start -->
+
+        <!-- Footer Bottom End -->
+
+        <!-- Back to Top -->
+
+
+        <!-- JavaScript Libraries -->
+
+        <!-- Template Javascript -->
+
+    </body>
+
+{% endblock main %}
+</html>

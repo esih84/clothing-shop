@@ -1,0 +1,44 @@
+{% extends 'administrator/base.html' %}
+{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>explore</title>
+</head>
+<body>
+    <div class="product-view">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                         {% for posts in post  %}
+                             <div class="col-md-4">
+                                 <div class="product-item">
+                                     <div class="product-image">
+                                         <a href="product-detail.html">
+                                             <img src="{{ posts.photo.url }}" alt="Product Image">
+                                         </a>
+                                         <div class="product-action">
+                                             {% if posts.user.user_id == request.user.user_id %}
+                                                <a href="{% url 'accounts:edit' posts.pk %}"><i class="fas fa-edit"></i></a>
+                                                <a href='{% url 'accounts:deleted' posts.pk %}'><i class="fas fa-trash-alt"></i></a>
+                                             {% endif %}
+                                             <a href='{% url 'accounts:postdate' posts.id  %}'><i class="fa fa-search"></i></a>
+                                         </div>
+                                     </div>
+                                     <div class="product-price">
+                                         <h3><span>$</span>99</h3>
+                                         <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock main %}
+</html>

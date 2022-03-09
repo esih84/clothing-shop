@@ -1,0 +1,9 @@
+{% extends 'administrator/base.html' %}
+{% block main %}
+     {% include 'administrator/header.html' %}
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="delete">
+    </form>
+     {% include 'administrator/footer.html' %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'administrator/base.html' %}
+
+{% block main %}
+    {% include 'administrator/header.html' %}
+    <form method="post">
+        {% if validlink %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">change password</button>
+
+            </form>
+         {% endif %}
+    {% include 'administrator/footer.html' %}
+{% endblock main %}

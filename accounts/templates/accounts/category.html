@@ -1,0 +1,46 @@
+  <div class="container-fluid">
+      {% for caters in cater.all %}
+            <div class="col-md-3">
+                <div class="category-item ch-400">
+                    <img src="{{ caters.post.photo.url }}">
+                    {{ caters.post.title }}
+                     <p>{{ caters.desc|linebreaks }}</p>
+                    </a>
+                </div>
+            </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% for categorys in category %}#}
+{#    <li class="nav-item">#}
+{#        <a  href="{% url 'accounts:category' categorys.slug %}"> {{ categorys.title }}</a>#}
+{#    </li>#}
+{#{% endfor %}#}

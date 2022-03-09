@@ -1,0 +1,175 @@
+{% extends 'administrator/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block main %}
+     {% include 'administrator/header.html' %}
+    <body>
+
+
+        
+        <!-- Nav Bar Start -->
+
+        <!-- Nav Bar End -->      
+        
+        <!-- Bottom Bar Start -->
+
+        <!-- Bottom Bar End --> 
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">My Account</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- My Account Start -->
+        <div class="my-account">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="col-md-3">
+                            <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-user"></i>Dashboard</a>
+                                <a class="nav-link" id="orders-nav"   href="{% url 'accounts:create' %}" ><i class="fas fa-folder-plus"></i>create_post</a>
+                                 <a class="nav-link" id="orders-nav"   href="{% url 'accounts:userposts' user.user_id  %}" ><i class="fas fa-portrait"></i>user_post</a>
+                                <a class="nav-link" id="payment-nav"  href="{% url 'accounts:change' %}" ><i class="fas fa-lock"></i>change-password</a>
+                                <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
+
+                                <a class="nav-link" id="account-nav"  href="{% url 'accounts:profile_save' %}" ><i class="fas fa-user-plus"></i>Account Details</a>
+                                <a class="nav-link" href="{% url 'accounts:logout' %}"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                            </div>
+                        </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                <h4>{{ profile.first_name }}</h4>
+                                <p>{{ profile.national_code }}</p>
+                                <p>{{ profile.address }}</p>
+                                <a class="btn" href="{% url 'accounts:follow' profile.user_id %}">follow</a>
+                                <small>{{ profile.total_follow }}</small>
+
+
+                            </div>
+                             <div class="" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                 <a class="btn" href="{% url 'accounts:follower_list' profile.user_id %}">followers</a>
+                             </div>
+                            <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
+                                <h4>Payment Method</h4>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
+                                </p> 
+                            </div>
+                            <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
+                                <h4>Address</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>{{ profile.address}}</p>
+                                        <p>Mobile:{{ profile.phone}}</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- My Account End -->
+        
+        <!-- Footer Start -->
+
+        <!-- Footer End -->
+        
+        <!-- Footer Bottom Start -->
+
+        <!-- Footer Bottom End -->       
+        
+        <!-- Back to Top -->
+
+        
+        <!-- JavaScript Libraries -->
+{#         <script>#}
+{#        let follow =document.getElementById("follow")#}
+{#            follow.addEventListener("click",function (e){#}
+{#            let user_id = follow.getAttribute("data_id");#}
+{#            let body = {#}
+{#                user_id : user_id,#}
+{#                csrfmiddlewaretoken: '{{ csrf_token }}'#}
+{#            }#}
+{#            e.preventDefault();#}
+{#            $.post("{% url 'accounts:follow' %}",body ,function (response){#}
+{#                if(response=="followed"){#}
+{#                    document.getElementById("follow").innerHTML = "followed"#}
+{#                }else {#}
+{#                    document.getElementById("follow").innerHTML = "unfollow"#}
+{#                }#}
+{#                });#}
+{#        })#}
+{##}
+{#        $('audio').audioPlayer({#}
+{#            classPrefix : 'audioplayer',#}
+{#            strPlay:'',#}
+{#            strPause:'',#}
+{#            strVolume:''#}
+{#        })#}
+{##}
+{##}
+{##}
+{#    </script>#}
+        
+        <!-- Template Javascript -->
+
+    </body>
+     {% include 'administrator/footer.html' %}
+{% endblock main %}
+</html>
