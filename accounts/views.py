@@ -36,7 +36,7 @@ def Login(request):
     if request.method == 'POST':
         username = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=username, password=password)
 
         if user is not None:
             login(request, user)
@@ -89,12 +89,23 @@ def profile_view(request):
     return render(request, 'accounts/my-account.html', context)
 
 
+def profile_explore(request, user_id):
+    pr = profile.objects.get(user_id=user_id)
+    post_usr = create_post.objects.filter(user_id=user_id)
+    context = {
+        'profile': pr,
+        'post': post_usr,
+        'photo': photo.objects.all(),
+    }
+    return render(request, 'accounts/accounts.html', context)
+
+
 @login_required(login_url='/accounts/login/')
 def profile_save(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         user_profile = UserProfileUpdate(request.POST, instance=request.user.profile)
-
+        print(user_profile)
         if user_profile.is_valid() or user_form.is_valid():
             user_form.save()
             user_profile.save()
@@ -109,6 +120,23 @@ def profile_save(request):
         'user_profile': user_profile,
     }
     return render(request, 'accounts/update.html', context)
+
+
+def privat(request):
+    if request.method == 'POST':
+        user_id = request.user.user_id
+        if private.objects.filter(profile_id=user_id).exists():
+            private.pr = False
+            private.objects.filter(profile_id=user_id).delete()
+            messages.success(request, 'your accounts not private', 'dark')
+            return redirect('accounts:profile')
+        else:
+            esi = private.objects.create(profile_id=user_id, pr=True)
+            esi.save()
+            messages.success(request, 'your accounts is private', 'dark')
+            return redirect('accounts:profile')
+    else:
+        return render(request, 'accounts/settings.html')
 
 
 @login_required(login_url='/accounts/login/')
@@ -147,7 +175,6 @@ def create_view(request):
         if not request.POST['desc']:
             raise ValueError("desc nust be valid")
 
-
         post = create_post.objects.create(user_id=request.user.user_id, title=request.POST['title'],
                                           desc=request.POST['desc'], )
         post.save()
@@ -181,12 +208,14 @@ def post_detail_view(request, id):
     details = get_object_or_404(create_post, id=id)
     commentform = comment_form()
     replyform = reply_form()
+    usernam = get_object_or_404(profile, user_id=id)
     context = {
         "cate": cate,
         'phot': phot,
         "replyform": replyform,
         "commentform": commentform,
         "details": details,
+        "username": usernam,
         "comment": comment.objects.filter(post_key_id=id, is_reply=False),
     }
 
@@ -233,11 +262,33 @@ def like_view(request, id):
     product = get_object_or_404(create_post, id=id)
     if product.like.filter(user_id=request.user.user_id).exists():
         product.like.remove(request.user)
-        messages.success(request, 'remove', 'success')
+        messages.success(request, 'remove', 'dark')
     else:
         product.like.add(request.user)
         messages.success(request, 'add', 'success')
     return redirect(url)
+
+
+def save_post(request, id):
+    url = request.META.get('HTTP_REFERER')
+    product = get_object_or_404(create_post, id=id)
+    if product.save_posts.filter(user_id=request.user.user_id).exists():
+        product.save_posts.remove(request.user)
+        messages.success(request, 'remove', 'dark')
+    else:
+        product.save_posts.add(request.user)
+        messages.success(request, 'add', 'success')
+    return redirect(url)
+
+
+def save_n(request):
+    prudoct = create_post.objects.all()
+
+    context = {
+        "post": prudoct,
+        "photo": photo.objects.all(),
+    }
+    return render(request, 'accounts/save.html', context)
 
 
 def search(request):
@@ -288,7 +339,6 @@ def follwer_follwing_view(request, user_id):
 def follower_list(request, user_id):
     following = get_object_or_404(profile, user_id=user_id)
     follower = following.follow.all()
-    print(follower)
     context = {
         'follower': follower
     }
@@ -297,6 +347,7 @@ def follower_list(request, user_id):
 
 def explore(request):
     context = {
-        'post': create_post.objects.all()
+        'post': create_post.objects.all(),
+        'photo': photo.objects.all(),
     }
     return render(request, 'accounts/explore.html', context)

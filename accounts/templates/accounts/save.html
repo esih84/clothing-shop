@@ -36,14 +36,14 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                         {% for posts in post  %}
+                         {% for posts in post.save_posts.all  %}
                              <div class="col-md-4">
                                  <div class="product-item">
                                      <div class="product-image">
                                          <a href="product-detail.html">
                                             {% for photos in photo %}
                                                     {% if photos.post_id_id == posts.id %}
-                                                       <img src="{{ photos.photo.url}}" alt="Product Image">
+                                                       <img src="{{ photos.photo.url }}" alt="Product Image">
                                                     {% endif %}
                                             {% endfor %}
                                          </a>

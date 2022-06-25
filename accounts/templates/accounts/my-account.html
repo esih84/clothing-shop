@@ -39,7 +39,8 @@
                                  <a class="nav-link" id="orders-nav"   href="{% url 'accounts:userposts' user.user_id  %}" ><i class="fas fa-portrait"></i>user_post</a>
                                 <a class="nav-link" id="payment-nav"  href="{% url 'accounts:change' %}" ><i class="fas fa-lock"></i>change-password</a>
                                 <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
-
+                                <a class="nav-link" id="payment-nav"  href="{% url 'accounts:settings' %}" ><i class="fas fa-lock"></i>settings</a>
+{#                                <a class="nav-link" id="account-nav"  href="{% url 'accounts:save' user.user_id %}" ><i class="fas fa-user-plus"></i>save post</a>#}
                                 <a class="nav-link" id="account-nav"  href="{% url 'accounts:profile_save' %}" ><i class="fas fa-user-plus"></i>Account Details</a>
                                 <a class="nav-link" href="{% url 'accounts:logout' %}"><i class="fa fa-sign-out-alt"></i>Logout</a>
                             </div>
@@ -52,6 +53,7 @@
                                 <p>{{ profile.address }}</p>
                                 <a class="btn" href="{% url 'accounts:follow' profile.user_id %}">follow</a>
                                 <small>{{ profile.total_follow }}</small>
+                                <a href="{% url 'accounts:save'  %}" class="btn">library</a>
 
 
                             </div>

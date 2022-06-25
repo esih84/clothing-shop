@@ -54,9 +54,11 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
+                                        <h2> <a href="{% url 'accounts:profile_explore' details.user_id %}">{{ username.first_name }}{{ username.last_name }}</a></h2>
                                         <div class="title"><h2>{{ details.title }}</h2></div>
                                         <a href="{% url 'accounts:liked' details.id %}" class="btn btn-dark"><i class="fa fa-heart"></i></a>
                                         <small>{{ details.total_like }}</small>
+                                        <a href="{% url 'accounts:save_post' details.id %}" class="btn btn-dark"><i class="fa fa-save"></i></a>
                                         <div class="price">
                                             <h4>Price:</h4>
                                             <p>$99 <span>$149</span></p>

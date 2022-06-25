@@ -1,25 +1,25 @@
 from django.db import models
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User,AbstractBaseUser,BaseUserManager
+from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 from django.forms import ModelForm
 from django.urls import reverse
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self,email,username,password):
+    def create_user(self, email, username, password):
         if not email:
             raise ValueError('please enter an email')
 
         if not username:
             raise ValueError('please enter an username')
 
-        user = self.model(email = self.normalize_email(email),username=username)
+        user = self.model(email=self.normalize_email(email), username=username)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self ,email, username, password):
+    def create_superuser(self, email, username, password):
        user = self.create_user(email, username, password)
        user.is_admin = True
        user.save(using=self._db)
@@ -53,13 +53,13 @@ class User(AbstractBaseUser):
 
 
 
+
 class profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
-    private = models.BooleanField(default=False)
     desc = models.TextField(blank=True)
-    phone = models.CharField(max_length=11, null=True)
+    phone = models.IntegerField(null=True)
     postal_address = models.CharField(max_length=30, null=True)
     address = models.CharField(max_length=200)
     national_code = models.CharField(max_length=10, null=True,)
@@ -79,8 +79,12 @@ def save_profile_user(sender, **kwargs):
         profile_user = profile(user=kwargs['instance'])
         profile_user.save()
 
-post_save.connect(save_profile_user,sender=User)
+    post_save.connect(save_profile_user,sender=User)
 
+
+class private(models.Model):
+    profile = models.OneToOneField(profile, on_delete=models.CASCADE)
+    pr = models.BooleanField(default=False)
 
 
 class create_post(models.Model):
@@ -92,6 +96,7 @@ class create_post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     admin = models.BooleanField(default=False)
     like = models.ManyToManyField(User, blank=True, related_name='post_like')
+    save_posts = models.ManyToManyField(User, blank=True, related_name='saves')
     total_like = models.IntegerField(default=True)
     unlike = models.ManyToManyField(User, blank=True, related_name='post_unlike')
     total_unlike = models.IntegerField(default=True)
@@ -122,12 +127,14 @@ class comment(models.Model):
     is_reply = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.post_key.name
+        return self.post_key.title
+
 
 class comment_form(ModelForm):
     class Meta:
         model = comment
         fields = ['desc']
+
 class reply_form(ModelForm):
     class Meta:
         model = comment

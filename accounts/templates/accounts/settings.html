@@ -1,0 +1,26 @@
+{% extends 'administrator/base.html' %}
+{% block main %}
+     {% include 'administrator/header.html' %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="register-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                     <input class="form-control" type="checkbox" name="private" placeholder="private">
+                                </div>
+                                 <div class="col-md-12">
+                                    <input class="btn" type="submit" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+     {% include 'administrator/footer.html' %}
+{% endblock %}

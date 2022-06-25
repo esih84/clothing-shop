@@ -10,6 +10,7 @@
     <h1>
     {{ profile.user.email }}
     </h1>
+
     <a href="{% url 'accounts:profile_save' %}">update</a>
     <div><h1>{{ user_profile.desc }}</h1></div>
     <div>{{ user_profile.address }}</div>

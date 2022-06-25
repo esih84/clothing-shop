@@ -38,40 +38,37 @@
                                             <h6>{{ user_form.username }}</h6>
                                         </div>
                                         <div class="col-md-6">
-                                            <small>lastname</small>
-                                            <input name="last_name" type="text">
+                                            <small>firsname</small>
+                                            <h6>{{ user_profile.first_name }}</h6>
                                         </div>
                                         <div class="col-md-6">
-                                            <small>firstname</small>
-                                            <input name="first_name">
+                                            <small>last_name</small>
+                                            <h6>{{ user_profile.last_name }}</h6>
                                         </div>
-                                        <div class="col-md-6">
-                                            <small>private</small>
-                                            <h6>{{ user_profile.private }}</h6>
+                                          <div class="col-md-6">
+                                             <small>description</small>
+                                             <h6>{{ user_profile.desc}}</h6>
                                         </div>
-
-
+                                          <div class="col-md-6">
+                                            <small>address</small>
+                                            <h6>{{ user_profile.address}}</h6>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <small>  national_code</small>
+                                            <h6> {{ user_profile.national_code}}</h6>
+                                        </div>
                                         <div class="col-md-6">
                                             <small>phone</small>
                                             <h6>{{ user_profile.phone}}</h6>
 
                                         </div>
-                                        <div class="col-md-6">
-                                            <small>address</small>
-                                            <h6>{{ user_profile.address}}</h6>
-                                        </div>
+
                                         <div class="col-md-6">
                                             <small> postal_address</small>
                                             <h6>{{ user_profile.postal_address}}</h6>
                                         </div>
-                                        <div class="col-md-6">
-                                            <small>  national_code</small>
-                                            <h6> {{ user_profile.national_code}}</h6>
-                                        </div>
-                                        <div class="col-md-6">
-                                             <small>description</small>
-                                             <h6>{{ user_profile.desc}}</h6>
-                                        </div>
+
+
                                         <div class="col-md-12">
                                             <input class="btn btn-dark" type="submit">
                                             <br><br>
